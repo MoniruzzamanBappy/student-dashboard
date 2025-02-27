@@ -26,10 +26,12 @@ export default function Dashboard() {
 
   return (
     <div className="p-4 sm:p-6">
-      <h1 className="text-2xl font-semibold">Academic Dashboard</h1>
+      <h1 className="text-2xl font-semibold text-gray-900">
+        📊 Academic Dashboard
+      </h1>
 
       {/* Summary Cards */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mt-6">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
         {cards.map((card, index) => (
           <div
             key={index}
@@ -50,13 +52,13 @@ export default function Dashboard() {
       </div>
 
       {/* Leaderboard & Enrollment Chart */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-6 mt-6">
         <Leaderboard students={students} />
         <EnrollmentChart courses={courses} />
       </div>
 
       {/* Most Popular Courses */}
-      <div className="mt-6">
+      <div className="mt-8">
         <MostPopularCourses courses={courses} />
       </div>
     </div>

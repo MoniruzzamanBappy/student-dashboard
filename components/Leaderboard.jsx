@@ -1,81 +1,107 @@
 "use client";
-
 import Image from "next/image";
+import { FiAward, FiStar, FiTrendingUp } from "react-icons/fi";
 
 export default function Leaderboard({ students = [] }) {
-  // Generate dynamic avatars using RoboHash based on student IDs
-  const getAvatar = (id) => `https://robohash.org/${id}?set=set5&size=50x50`;
+  const getAvatar = (id) => `https://robohash.org/${id}?set=set5&size=100x100`;
 
-  // Modify students data to include marks and percentage
-  const processedStudents = students.map((student) => {
-    const marks = Math.floor(Math.random() * (1200 - 1000 + 1)) + 1000; // Random marks between 1000-1200
-    const percentage = ((marks / 1200) * 100).toFixed(1) + "%"; // Calculate percentage
-    const year = Math.floor(Math.random() * (2025 - 2015 + 1)) + 2015; // Random year between 2015-2025
+  const processedStudents = students.map((student) => ({
+    ...student,
+    marks: Math.floor(Math.random() * (1200 - 1000 + 1)) + 1000,
+    percentage: (Math.random() * (95 - 75) + 75).toFixed(1) + "%",
+    year: Math.floor(Math.random() * (2025 - 2015 + 1)) + 2015,
+  }));
 
-    return {
-      ...student,
-      marks,
-      percentage,
-      year,
-    };
-  });
-
-  // Sort students by GPA and pick the top 5
   const topStudents = [...processedStudents]
     .sort((a, b) => b.gpa - a.gpa)
     .slice(0, 5);
 
   if (topStudents.length === 0) {
     return (
-      <p className="text-center text-gray-500">No student data available</p>
+      <div className="p-8 text-center bg-white rounded-2xl shadow-lg border border-gray-100">
+        <div className="text-gray-400 mb-4 flex justify-center">
+          <FiAward className="w-12 h-12" />
+        </div>
+        <p className="text-gray-500">No student records available</p>
+      </div>
     );
   }
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md">
-      <div className="flex justify-between items-center">
-        <h2 className="text-lg font-semibold">⭐ Star Students</h2>
-        <button className="text-gray-400 hover:text-gray-600">
-          <span className="text-xl">⋮</span>
+    <div className="p-6 bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl shadow-lg border border-gray-100">
+      <div className="flex items-center justify-between mb-6">
+        <div className="flex items-center gap-3">
+          <div className="p-2 bg-white rounded-lg shadow-sm">
+            <FiStar className="w-6 h-6 text-yellow-500" />
+          </div>
+          <h2 className="text-xl font-bold text-gray-900">Top Performers</h2>
+        </div>
+        <button className="flex items-center gap-2 text-gray-600 hover:text-gray-800 transition-colors">
+          <span className="text-sm font-medium">View All</span>
+          <FiTrendingUp className="w-4 h-4" />
         </button>
       </div>
 
-      {/* Responsive Table */}
-      <div className="overflow-x-auto mt-3">
-        <table className="w-full border-collapse">
-          <thead>
-            <tr className="bg-gray-100 text-left text-sm">
-              <th className="p-3 font-medium text-gray-600">ID</th>
-              <th className="p-3 font-medium text-gray-600">Name</th>
-              <th className="p-3 font-medium text-gray-600">Marks</th>
-              <th className="p-3 font-medium text-gray-600">Percentage</th>
-              <th className="p-3 font-medium text-gray-600">Year</th>
-            </tr>
-          </thead>
-          <tbody>
-            {topStudents.map((student, index) => (
-              <tr
-                key={index}
-                className="border-b last:border-0 text-sm hover:bg-gray-50"
-              >
-                <td className="p-3 text-gray-700">{student.id}</td>
-                <td className="p-3 flex items-center space-x-3">
-                  <Image
-                    src={getAvatar(student.id)}
-                    alt={student.name}
-                    width={30}
-                    height={30}
-                    className="rounded-full"
+      <div className="space-y-4">
+        {topStudents.map((student, index) => (
+          <div
+            key={student.id}
+            className="group flex items-center justify-between p-4 bg-white rounded-xl shadow-sm hover:shadow-md transition-all"
+          >
+            <div className="flex items-center gap-4 flex-1 min-w-[100px]">
+              <div className="relative">
+                <Image
+                  src={getAvatar(student.id)}
+                  alt={student.name}
+                  width={48}
+                  height={48}
+                  className="rounded-full border-2 border-blue-200"
+                />
+                <span className="absolute -bottom-1 -right-1 bg-blue-500 text-white text-xs font-bold w-6 h-6 rounded-full flex items-center justify-center">
+                  #{index + 1}
+                </span>
+              </div>
+              <div>
+                <h3 className="font-semibold text-gray-900">{student.name}</h3>
+                <p className="text-sm text-gray-600">ID: {student.id}</p>
+              </div>
+            </div>
+
+            <div className="w-full sm:w-auto flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-6">
+              <div className="flex-1 min-w-[100px]">
+                <div className="flex items-center gap-2 mb-1">
+                  <span className="text-sm font-medium text-gray-600">
+                    Progress
+                  </span>
+                  <span className="text-sm font-semibold text-blue-600">
+                    {student.percentage}
+                  </span>
+                </div>
+                <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-gradient-to-r from-blue-400 to-purple-400"
+                    style={{ width: student.percentage }}
                   />
-                  <span className="text-gray-800">{student.name}</span>
-                </td>
-                <td className="p-3 text-gray-700">{student.marks}</td>
-                <td className="p-3 text-gray-700">{student.percentage}</td>
-                <td className="p-3 text-gray-700">{student.year}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                </div>
+              </div>
+
+              <div className="flex justify-between sm:justify-normal gap-4">
+                <div className="text-right sm:text-left">
+                  <p className="text-sm font-semibold text-gray-900">
+                    {student.marks}
+                  </p>
+                  <p className="text-xs text-gray-500">Marks</p>
+                </div>
+                <div className="text-right">
+                  <p className="text-sm font-semibold text-gray-900">
+                    {student.year}
+                  </p>
+                  <p className="text-xs text-gray-500">Year</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

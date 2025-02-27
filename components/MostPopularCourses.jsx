@@ -4,12 +4,20 @@ export default function MostPopularCourses({ courses = [] }) {
     .slice(0, 5);
 
   return (
-    <div className="p-4 bg-white rounded-lg shadow-md">
-      <h2 className="text-lg font-semibold">🔥 Most Popular Courses</h2>
-      <ul className="mt-2">
+    <div className="p-6 bg-white rounded-lg shadow-md">
+      <h2 className="text-xl font-semibold text-gray-900 flex items-center">
+        🔥 Most Popular Courses
+      </h2>
+      <ul className="mt-4 space-y-3">
         {popularCourses.map((course) => (
-          <li key={course.id} className="border-b p-2">
-            {course.title} - {course.enrollment} students
+          <li
+            key={course.id}
+            className="flex justify-between items-center bg-gray-100 p-3 rounded-lg hover:bg-gray-200 transition"
+          >
+            <span className="text-md font-medium">{course.title}</span>
+            <span className="px-3 py-1 bg-blue-500 text-white text-sm rounded-md">
+              {course.enrollment} students
+            </span>
           </li>
         ))}
       </ul>
