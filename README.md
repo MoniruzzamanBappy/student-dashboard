@@ -7,10 +7,13 @@ EduManage is a modern academic management system designed to help institutions e
 
 ## 🚀 Getting Started
 
+### Here is the live site
+Open [https://student-dashboard-psi-indol.vercel.app/](https://student-dashboard-psi-indol.vercel.app/) in your browser to view the app.
+
 ### 1️⃣ Prerequisites
 Make sure you have the following installed:
 - [Node.js](https://nodejs.org/en/download/) (LTS recommended)
-- [npm](https://www.npmjs.com/) or [yarn](https://yarnpkg.com/) or [pnpm](https://pnpm.io/)
+- [yarn](https://yarnpkg.com/)
 
 ### 2️⃣ Install Dependencies
 Clone the repository and install dependencies:

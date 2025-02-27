@@ -27,14 +27,14 @@ function HomeLayout() {
         </p>
         <div className="flex flex-col sm:flex-row justify-center space-y-4 sm:space-y-0 sm:space-x-4">
           <Link
-            href="/signup"
+            href="/dashboard"
             className="px-8 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center space-x-2"
           >
             <span>Get Started</span>
             <FiArrowRight className="w-5 h-5" />
           </Link>
           <Link
-            href="/features"
+            href="/students"
             className="px-8 py-3 bg-white text-gray-700 rounded-lg hover:bg-gray-50 border border-gray-200"
           >
             Learn More
@@ -100,7 +100,7 @@ function HomeLayout() {
           operations.
         </p>
         <Link
-          href="/signup"
+          href="/dashboard"
           className="px-8 py-3 bg-white text-blue-600 rounded-lg hover:bg-blue-50 flex items-center justify-center space-x-2 mx-auto w-fit"
         >
           <span>Start Your Free Trial</span>
